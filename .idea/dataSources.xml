@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="2332892915">
+    <data-source source="LOCAL" name="Rails hds: development" uuid="e02ceffb-b857-4267-8da3-c820bd686d2c">
+      <driver-ref>postgresql</driver-ref>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:hds</jdbc-url>
+      <user-name>adel</user-name>
+      <user-password>df9bdf98df99df9e</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+
