@@ -1,4 +1,6 @@
 Hds::Application.routes.draw do
+  resources :districts
+
   resources :cities
 
   devise_for :users
