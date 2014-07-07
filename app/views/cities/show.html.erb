@@ -4,6 +4,7 @@
   <strong>Name:</strong>
   <%= @city.name %>
 </p>
-
-<%= link_to 'Edit', edit_city_path(@city) %> |
+<% if can? :mange, City %>
+    <%= link_to 'Edit', edit_city_path(@city) %> |
+<% end %>
 <%= link_to 'Back', cities_path %>

@@ -9,6 +9,7 @@
   <strong>City:</strong>
   <%= @district.city.name %>
 </p>
-
-<%= link_to 'Edit', edit_district_path(@district) %> |
+<% if can? :manage, District %>
+    <%= link_to 'Edit', edit_district_path(@district) %> |
+<% end %>
 <%= link_to 'Back', districts_path %>

@@ -2,26 +2,29 @@
 
 <table>
   <thead>
-    <tr>
-      <th>Name</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @statuses.each do |status| %>
+  <% @statuses.each do |status| %>
       <tr>
         <td><%= status.name %></td>
-        <td><%= link_to 'Show', status %></td>
-        <td><%= link_to 'Edit', edit_status_path(status) %></td>
-        <td><%= link_to 'Destroy', status, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if can? :manage, Status %>
+            <td><%= link_to 'Show', status %></td>
+            <td><%= link_to 'Edit', edit_status_path(status) %></td>
+            <td><%= link_to 'Destroy', status, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <% end %>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Status', new_status_path %>
+<% if can? :manage, Status %>
+    <%= link_to 'New Status', new_status_path %>
+<% end %>
