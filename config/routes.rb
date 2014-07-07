@@ -1,4 +1,6 @@
 Hds::Application.routes.draw do
+  resources :statuses
+
   resources :districts
 
   resources :cities
