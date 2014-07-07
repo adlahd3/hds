@@ -14,14 +14,17 @@
     <% @cities.each do |city| %>
       <tr>
         <td><%= city.name %></td>
+        <% if can? :manage,City %>
         <td><%= link_to 'Show', city %></td>
         <td><%= link_to 'Edit', edit_city_path(city) %></td>
         <td><%= link_to 'Destroy', city, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
+<% if can? :manage,City %>
 <%= link_to 'New City', new_city_path %>
+<% end %>
