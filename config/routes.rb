@@ -1,9 +1,16 @@
 Hds::Application.routes.draw do
+
+  resources :order_types
+
   resources :statuses
 
   resources :districts
 
-  resources :cities
+  resources :cities do
+    resources :districts, only: [:index]
+  end
+
+
 
   devise_for :users
   get "pages/index"
