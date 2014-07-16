@@ -4,6 +4,7 @@
   <strong>Name:</strong>
   <%= @order_type.name %>
 </p>
-
-<%= link_to 'Edit', edit_order_type_path(@order_type) %> |
-<%= link_to 'Back', order_types_path %>
+<% if can? :manage, OrderType %>
+    <%= link_to 'Edit', edit_order_type_path(@order_type) %> |
+    <% end %>
+    <%= link_to 'Back', order_types_path %>
