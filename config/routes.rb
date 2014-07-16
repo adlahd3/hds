@@ -1,5 +1,7 @@
 Hds::Application.routes.draw do
 
+  resources :addresses
+
   resources :customers
 
   resources :order_types

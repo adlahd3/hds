@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Lat:</strong>
+  <%= @address.lat %>
+</p>
+
+<p>
+  <strong>Lon:</strong>
+  <%= @address.lon %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @address.city_id %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @address.district_id %>
+</p>
+
+
+<% if can? :manage, Address %>
+    <%= link_to 'Edit', edit_address_path(@address) %> |
+<% end %>
+<%= link_to 'Back', addresses_path %>

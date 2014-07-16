@@ -1,0 +1,36 @@
+<h1>Listing addresses</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Lat</th>
+    <th>Lon</th>
+    <th>City</th>
+    <th>District</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @addresses.each do |address| %>
+      <tr>
+        <td><%= address.lat %></td>
+        <td><%= address.lon %></td>
+        <td><%= address.city_id %></td>
+        <td><%= address.district_id %></td>
+        <% if can? :manage, Address %>
+            <td><%= link_to 'Show', address %></td>
+            <td><%= link_to 'Edit', edit_address_path(address) %></td>
+            <td><%= link_to 'Destroy', address, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if can? :manage, Customer %>
+    <%= link_to 'New Address', new_address_path %>
+<% end %>
