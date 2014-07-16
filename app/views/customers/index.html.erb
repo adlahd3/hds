@@ -1,0 +1,36 @@
+<h1>Listing customers</h1>
+
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Mobile</th>
+    <th>Message language</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.name %></td>
+        <td><%= customer.mobile %></td>
+        <td><%= customer.message_language %></td>
+        <td><%= customer.email %></td>
+        <% if can? :manage, Customer %>
+            <td><%= link_to 'Show', customer %></td>
+            <td><%= link_to 'Edit', edit_customer_path(customer) %></td>
+            <td><%= link_to 'Destroy', customer, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <% end %>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<br>
+<% if can? :manage, Customer %>
+    <%= link_to 'New Customer', new_customer_path %>
+<% end %>
