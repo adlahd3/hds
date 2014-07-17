@@ -1,34 +1,48 @@
 <%= form_for(@address) do |f| %>
-  <% if @address.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>
+    <% if @address.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@address.errors.count, "error") %> prohibited this address from being saved:</h2>
 
-      <ul>
-      <% @address.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @address.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :lat %>
+      <br>
+      <%= f.text_field :lat %>
     </div>
-  <% end %>
+    <div class="field">
+      <%= f.label :lon %>
+      <br>
+      <%= f.text_field :lon %>
+    </div>
 
-  <div class="field">
-    <%= f.label :lat %><br>
-    <%= f.text_field :lat %>
-  </div>
-  <div class="field">
-    <%= f.label :lon %><br>
-    <%= f.text_field :lon %>
-  </div>
-  <div class="field">
-    <%= f.label :city_id %><br>
-    <%= f.collection_select(:city_id, City.all, :id, :name, :include_blank => "Please Select a City")%>
-  </div>
-  <div class="field">
-    <%= f.label :district_id %><br>
-    <%= f.text_field :district_id %>
-  </div>
+    <div class="field" id="city_select">
+      <%= f.label :city_id %>
+      <br>
+      <%=
+     # f.select :city_id,options_for_select(@cities.collect { |city| [city.name, city.id] }, 1), {}, {id: 'cities_select'}
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    collection_select(:address, :city_id, @cities, :id, :name, {prompt: "Select a city", id:'cities_select'})
+
+      %>
+       </div>
+    <div class="field">
+      <%= f.label :district_id %>
+      <br>
+
+      <%= #f.select :district_id, options_for_select(@districts.collect { |district| [district.name, district.id] }, 1), {}, {id: 'districts_select'}
+          collection_select(:address, :district_id, @districts, :id, :name, {prompt: "Select a district", id:'districts_select'})
+      %>
+
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
 <% end %>

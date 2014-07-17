@@ -15,6 +15,8 @@ class AddressesController < ApplicationController
   # GET /addresses/new
   def new
     @address = Address.new
+    @cities = City.all
+    @districts = District.all
   end
 
   # GET /addresses/1/edit
@@ -61,14 +63,16 @@ class AddressesController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_address
-      @address = Address.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def address_params
-      params.require(:address).permit(:lat, :lon, :city_id_id, :district_id_id, :deliver_in_the_city)
-    end
+
+  private
+  # Use callbacks to share common setup or constraints between actions.
+  def set_address
+    @address = Address.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def address_params
+    params.require(:address).permit(:lat, :lon, :city_id, :district_id, :deliver_in_the_city)
+  end
 end

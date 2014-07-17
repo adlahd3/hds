@@ -3,3 +3,36 @@
 <%= render 'form' %>
 
 <%= link_to 'Back', addresses_path %>
+
+
+<script>
+    $(document).ready(function () {
+        $('#address_district_id').attr('disabled',true);
+        $('#address_city_id').change(function () {
+
+            $('#address_district_id').find('option')
+                    .remove()
+                    .end();
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/ajax/get_districts/" + $('#address_city_id').val(),
+
+                success: function (data) {
+
+                    $.each(data, function (index, element) {
+                        $('#address_district_id')
+                                .append($("<option></option>")
+                                        .attr("value", element.id)
+                                        .text(element.name));
+                    });
+                    $('#address_district_id').attr('disabled',false);
+                },
+                error: function(data){
+
+                }
+            });
+            return false;
+        });
+    });
+</script>

@@ -21,6 +21,9 @@ Hds::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  match 'ajax/get_districts/:city_id', :to => 'ajax#get_districts', via: 'get'
+
+
   # You can have the root of your site routed with "root"
   root 'pages#index'
 
@@ -72,4 +75,7 @@ Hds::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+
+
 end

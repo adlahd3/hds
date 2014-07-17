@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716131803) do
+ActiveRecord::Schema.define(version: 20140717170106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,14 +19,19 @@ ActiveRecord::Schema.define(version: 20140716131803) do
   create_table "addresses", force: true do |t|
     t.float    "lat"
     t.float    "lon"
-    t.integer  "city_id_id"
-    t.integer  "district_id_id"
+    t.integer  "city_id"
+    t.integer  "district_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "addresses", ["city_id_id"], name: "index_addresses_on_city_id_id", using: :btree
-  add_index "addresses", ["district_id_id"], name: "index_addresses_on_district_id_id", using: :btree
+  add_index "addresses", ["city_id"], name: "index_addresses_on_city_id", using: :btree
+  add_index "addresses", ["district_id"], name: "index_addresses_on_district_id", using: :btree
+
+  create_table "addresses_customers", id: false, force: true do |t|
+    t.integer "customer_id"
+    t.integer "address_id"
+  end
 
   create_table "cities", force: true do |t|
     t.string   "name"
@@ -41,11 +46,6 @@ ActiveRecord::Schema.define(version: 20140716131803) do
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "customers_addresses", id: false, force: true do |t|
-    t.integer "customer_id"
-    t.integer "address_id"
   end
 
   create_table "districts", force: true do |t|
