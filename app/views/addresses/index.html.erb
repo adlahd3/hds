@@ -18,8 +18,8 @@
       <tr>
         <td><%= address.lat %></td>
         <td><%= address.lon %></td>
-        <td><%= address.city_id %></td>
-        <td><%= address.district_id %></td>
+        <td><%= address.city.name %></td>
+        <td><%= address.district.name %></td>
         <% if can? :manage, Address %>
             <td><%= link_to 'Show', address %></td>
             <td><%= link_to 'Edit', edit_address_path(address) %></td>

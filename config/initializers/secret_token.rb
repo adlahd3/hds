@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Hds::Application.config.secret_key_base = 'eeaa15946f0f4b7a093acc8158fe3fe88e195291b4f14625493a76c837697b75a3ed6da3990e3ebe03d025d8cef9fd49bd9554c02733c66c7cae047ad156a8a0'
+Hds::Application.config.secret_key_base = 'c7d709105eaa03c7b68be38c8dbd97c40a7639d70757a7ca2c2ad5ebcab4299116164077332956b827ba776754930d953421f15b33b2ff7a10b038c0be015207'

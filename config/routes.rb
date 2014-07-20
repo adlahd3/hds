@@ -1,6 +1,9 @@
 Hds::Application.routes.draw do
 
+  get "users/index"
+  get "users/show"
   resources :addresses
+  resources :address
 
   resources :customers
 
@@ -17,6 +20,7 @@ Hds::Application.routes.draw do
 
 
   devise_for :users
+  resources :users, :only => [:index,:show]
   get "pages/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
