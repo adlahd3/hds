@@ -4,7 +4,9 @@
   <tr>
     <th>Name</th>
     <th>Roles</th>
-    <th>Actions</th>
+    <% if can? :manage, User %>
+        <th>Actions</th>
+    <% end %>
     <th></th>
   </tr>
   </thead>
@@ -12,14 +14,17 @@
   <% @users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><% user.roles.each do |r|  %><%= r.name %><% end %></td>
-        <% if can? :manage,User %>
-        <td><%= link_to "Show",user_path(user.id) %> | <%= link_to "Edit","#" %> | <%= link_to "Delete","#" %>  </td>
+        <td>
+          <% user.roles.each do |r| %><%= r.name %>
+          <% end %></td>
+        <% if can? :manage, User %>
+            <td><%= link_to "Show", user_path(user.id) %> | <%= link_to "Edit", "#" %>
+              | <%= link_to "Delete", "#" %>  </td>
         <% end %>
       </tr>
   <% end %>
   </tbody>
 </table>
 <br>
-<% if can? :manage,User %>
+<% if can? :manage, User %>
 <% end %>
