@@ -17,6 +17,19 @@
   <strong>Email:</strong>
   <%= @customer.email %>
 </p>
+
+<% if @addresses.size > 0 %>
+    <p>
+      <strong>Addresses</strong>
+
+    <ul>
+      <% @addresses.each do |address| %>
+          <li><%= link_to "Address : #{address.id}", address_path(address.id) %></li>
+      <% end %>
+    </ul>
+    </p>
+<% end %>
+
 <% if can? :manage, Customer %>
     <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <% end %>

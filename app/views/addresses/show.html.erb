@@ -10,14 +10,26 @@
 
 <p>
   <strong>City:</strong>
-  <%= @address.city_id %>
+  <%= @address.city.name %>
 </p>
 
 <p>
   <strong>District:</strong>
-  <%= @address.district_id %>
+  <%= @address.district.name %>
 </p>
 
+<% if @customers.size > 0 %>
+<p>
+  <strong>Customers using this address </strong>
+
+    <ul>
+      <% @customers.each do |customer| %>
+          <li><%= link_to "Customer : #{customer.name}", customers_path(customer) %></li>
+      <% end %>
+    </ul>
+
+</p>
+<% end %>
 
 <% if can? :manage, Address %>
     <%= link_to 'Edit', edit_address_path(@address) %> |
