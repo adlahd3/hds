@@ -1,7 +1,8 @@
 Hds::Application.routes.draw do
 
-  get "users/index"
-  get "users/show"
+  #get "users/index"
+  #get "users/show"
+
   resources :addresses
   resources :address
 
@@ -20,7 +21,8 @@ Hds::Application.routes.draw do
 
 
   devise_for :users
-  resources :users, :only => [:index,:show,:update]
+  resources :users, :only => [:index,:show,:edit]
+  match '/users/:id', :to => 'users#update', via: 'patch'
   match 'users/grantRoles', :to => 'users#grantRoles', via: 'post'
 
 

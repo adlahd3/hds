@@ -1,30 +1,31 @@
 <h1><%= @user.name %> 's info</h1>
 <% if can? :manage, User %>
-    <fieldset>
-      <%= form_for :user do |f| %>
-          <p>
-          <%= label_tag :email %>
-          <%= f.text_field :email %>
-          </p>
-          <p>
-            <%= label_tag :name %>
-            <%= f.text_field :name %>
-          </p>
-          <%= f.submit "Update Data" %>
-      <% end %>
-    </fieldset>
-    <fieldset>
-      <legend>User Roles</legend>
-      <%= form_tag('/users/grantRoles') do %>
-          <%= hidden_field_tag :id, @user.id %>
+    <table>
+      <thead>
+      <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Actions</th>
+      </thead>
+      <tbody>
+      <tr>
+        <td><%= @user.name %></td>
+        <td><%= @user.email %></td>
+        <td>
           <% @roles.each do |role| %>
-              <%= hidden_field_tag(role.name, 0) %>
+              <% if @user.has_role?(role.name) %>
 
-              <%= check_box_tag role.name, 1, @user.has_role?(role.name) %>
-              <%= label_tag role.name %>
-              <br>
+                  <%= role.name %>
+
+              <% end %>
           <% end %>
-          <%= submit_tag "Update User Privliges" %>
-      <% end %>
-    </fieldset>
+        </td>
+        <% if can? :manage, User %>
+            <td> <%= link_to "Edit", edit_user_path(@user) %>
+              | <%= link_to "Delete", "#" %>  </td>
+        <% end %>
+      </tr>
+      </tbody>
+    </table>
 <% end %>

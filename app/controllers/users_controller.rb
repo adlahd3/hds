@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:show, :grantRoles, :update]
+  before_action :set_user, only: [:show, :grantRoles, :edit, :update]
 
   def index
     @users = User.all
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update(city_params)
+      if @user.update(user_params)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :no_content }
       else
@@ -23,38 +23,43 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @roles = Role.all
+  end
 
 
-
-  
   def grantRoles
-    if params[:admin] == "1"
-      @user.add_role(:admin)
-    elsif params[:admin] == "0"
-      @user.remove_role(:admin)
-    end
 
-    if params[:coordinator] == "1"
-      @user.add_role(:coordinator)
-    elsif params[:coordinator] == "0"
-      @user.remove_role(:coordinator)
-    end
+    authorize! :manage, @user
 
-    if params[:frontdesk] == "1"
-      @user.add_role(:frontdesk)
-    elsif params[:frontdesk] == "0"
-      @user.remove_role(:frontdesk)
-    end
 
-    if params[:driver] == "1"
-      @user.add_role(:driver)
-    elsif params[:driver] == "0"
-      @user.remove_role(:driver)
+      if params[:admin] == "1"
+        @user.add_role(:admin)
+      elsif params[:admin] == "0"
+        @user.remove_role(:admin)
+      end
 
-    end
+      if params[:coordinator] == "1"
+        @user.add_role(:coordinator)
+      elsif params[:coordinator] == "0"
+        @user.remove_role(:coordinator)
+      end
+
+      if params[:frontdesk] == "1"
+        @user.add_role(:frontdesk)
+      elsif params[:frontdesk] == "0"
+        @user.remove_role(:frontdesk)
+      end
+
+      if params[:driver] == "1"
+        @user.add_role(:driver)
+      elsif params[:driver] == "0"
+        @user.remove_role(:driver)
+      end
+
 
     flash[:notice] ="#{@user.name}'s role is changed successfully"
-    redirect_to users_index_path
+    redirect_to users_path
 
   end
 

@@ -2,32 +2,32 @@
 
 <table>
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>City</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>City</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
   </thead>
 
   <tbody>
-    <% @districts.each do |district| %>
+  <% @districts.each do |district| %>
       <tr>
         <td><%= district.name %></td>
         <td><%= district.city.name %></td>
 
         <% if can? :manage, District %>
-        <td><%= link_to 'Show', district %></td>
-        <td><%= link_to 'Edit', edit_district_path(district) %></td>
-        <td><%= link_to 'Destroy', district, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            <% end %>
+            <td><%= link_to 'Show', district %></td>
+            <td><%= link_to 'Edit', edit_district_path(district) %></td>
+            <td><%= link_to 'Destroy', district, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+        <% end %>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
 <br>
 <% if can? :manage, District %>
-<%= link_to 'New District', new_district_path %>
+    <%= link_to 'New District', new_district_path %>
 <% end %>
