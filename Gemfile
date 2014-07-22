@@ -33,6 +33,8 @@ gem 'cancan'
 gem 'rolify'
 
 gem 'gmaps4rails'
+
+gem 'paper_trail', '~> 3.0.3'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

@@ -2,7 +2,7 @@ class AddressesController < ApplicationController
 
 
   before_action :set_address, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_related_data, only: [:new, :edit]
   # GET /addresses
   # GET /addresses.json
   def index
@@ -17,21 +17,21 @@ class AddressesController < ApplicationController
 
   # GET /addresses/new
   def new
-    @address = Address.new
-    @cities = City.all
-    @districts = District.all
+
   end
 
   # GET /addresses/1/edit
   def edit
-    @cities = City.all
-    @districts = District.all
+
   end
 
   # POST /addresses
   # POST /addresses.json
   def create
     @address = Address.new(address_params)
+
+    @customer = Customer.find(params[:customer][:customer_id])
+    @customer.addresses << @address
 
     respond_to do |format|
       if @address.save
@@ -76,6 +76,13 @@ class AddressesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def address_params
-    params.require(:address).permit(:lat, :lon, :city_id, :district_id, :deliver_in_the_city)
+    params.require(:address).permit(:lat, :lon, :city_id, :district_id, :deliver_in_the_city, :customer => [:id])
+  end
+
+  def set_related_data
+    @address = Address.new
+    @cities = City.all
+    @districts = District.all
+    @customers = Customer.all
   end
 end
