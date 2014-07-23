@@ -1,5 +1,7 @@
 Hds::Application.routes.draw do
 
+  resources :orders
+
   #get "users/index"
   #get "users/show"
 
@@ -31,8 +33,8 @@ Hds::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  match 'ajax/get_districts/:city_id', :to => 'ajax#get_districts', via: 'get'
-
+  match 'ajax/get_districts/:city_id',     :to => 'ajax#get_districts', via: 'get'
+  match 'ajax/get_addresses/:customer_id', :to => 'ajax#get_addresses', via: 'get'
 
   # You can have the root of your site routed with "root"
   root 'pages#index'
