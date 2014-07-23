@@ -30,7 +30,10 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 
 gem 'cancan'
+
 gem 'rolify'
+
+gem 'wicked'
 
 gem 'gmaps4rails'
 
@@ -42,6 +45,9 @@ gem 'carrierwave'
 gem 'rails_12factor', group: :production
 
 
+
+
+gem 'select2-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
