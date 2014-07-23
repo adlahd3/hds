@@ -22,7 +22,7 @@
 
 <p>
   <strong>Bill image:</strong>
-  <%= link_to("Download ",raw(@order.bill_image)) %>
+  <%= raw(link_to ('Image', @order.bill_image)) %> %>
 </p>
 
 <%= link_to 'Edit', edit_order_path(@order) %> |
