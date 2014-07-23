@@ -30,11 +30,16 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 
 gem 'cancan'
+
 gem 'rolify'
+
+gem 'wicked'
 
 gem 'gmaps4rails'
 
 gem 'paper_trail', '~> 3.0.3'
+
+gem 'select2-rails'
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

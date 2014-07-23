@@ -18,6 +18,7 @@ Hds::Application.routes.draw do
     resources :districts, only: [:index]
   end
 
+  resources :order_creator
 
 
   devise_for :users
