@@ -31,8 +31,6 @@ class UsersController < ApplicationController
   def grantRoles
 
     authorize! :manage, @user
-
-
       if params[:admin] == "1"
         @user.add_role(:admin)
       elsif params[:admin] == "0"
