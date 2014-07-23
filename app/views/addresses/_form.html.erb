@@ -13,8 +13,6 @@
 
     <div style='width: 800px;'>
       <div id="map" style='width: 800px; height: 400px;'>
-
-
       </div>
     </div>
 
@@ -93,65 +91,28 @@
         });
 
 
-        /*
-         *
-         *       var marker = handler.addMarkers([
-         {
-         "lat": 24.699682984040187,
-         "lng": 46.72966003417969,
-         "picture": {
-         "url": "https://addons.cdn.mozilla.net/img/uploads/addon_icons/13/13028-64.png",
-         "width": 36,
-         "height": 36
-         },
-         "infowindow": "hello!"
-         }
-         ],
-         {draggable: true},
-         {clickable: true}
-         );
-         * */
-        // Google Maps Stuff..
+        function initialize() {
+            var mapOptions = {
+                zoom: 8,
+                center: new google.maps.LatLng(22.755439, 46.209155)
+            };
 
+            var map = new google.maps.Map(document.getElementById('map'),
+                    mapOptions);
 
-        handler = Gmaps.build('Google');
-        handler.buildMap({
+            var marker = new google.maps.Marker({
+                position: map.getCenter(),
+                map: map,
+                title: 'Click to zoom',
+                draggable: true
+            });
 
-                    provider: {
-                        zoom:6,
-                        center: new google.maps.LatLng(24.699682984040187, 46.72966003417969)
-                        // pass in other Google Maps API options here
-                    },
-                    internal: {
-                        id: 'map'
-                    }
-                },
-                function () {
-
-
-
-                    markers = handler.addMarkers([
-                        {
-                            "lat": 24.699682984040187,
-                            "lng": 46.72966003417969,
-                            "picture": {
-                                "url": "https://addons.cdn.mozilla.net/img/uploads/addon_icons/13/13028-64.png",
-                                "width": 36,
-                                "height": 36
-                            },
-                            "infowindow": "hello!"
-                        }
-                    ], {draggable: true});
-
-                    handler.bounds.extendWith(markers);
-
-
-
-
-                }
-
-
-        );
+            google.maps.event.addListener(marker, 'dragend', function(e) {
+             $('#address_lat').val(e.latLng.lat());
+             $('#address_lon').val(e.latLng.lng());
+            });
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
 
 
         // end document ready

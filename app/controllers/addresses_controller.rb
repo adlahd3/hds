@@ -17,7 +17,7 @@ class AddressesController < ApplicationController
 
   # GET /addresses/new
   def new
-
+    @address = Address.new
   end
 
   # GET /addresses/1/edit
@@ -76,11 +76,10 @@ class AddressesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def address_params
-    params.require(:address).permit(:lat, :lon, :city_id, :district_id, :deliver_in_the_city, :customer => [:id])
+    params.require(:address).permit(:id, :lat, :lon, :city_id, :district_id, :deliver_in_the_city, :customer => [:id])
   end
 
   def set_related_data
-    @address = Address.new
     @cities = City.all
     @districts = District.all
     @customers = Customer.all
