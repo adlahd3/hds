@@ -45,9 +45,11 @@ gem 'carrierwave'
 gem 'rails_12factor', group: :production
 
 
-
-
 gem 'select2-rails'
+
+gem 'aasm'
+
+gem 'geocoder'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

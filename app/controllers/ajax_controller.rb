@@ -14,4 +14,12 @@ class AjaxController < ApplicationController
     end
     render :json => @addresses
   end
+
+  def search_for_customer
+    if params[:customer_mobile].present?
+      @customer = Customer.find_by("mobile = ?",params[:customer_mobile])
+    end
+    render :json => @customer
+  end
+
 end

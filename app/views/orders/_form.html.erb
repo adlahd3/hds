@@ -14,7 +14,22 @@
     <div class="field">
       <%= f.label :customer_id %>
       <br>
-      <%= collection_select(:order, :customer_id, Customer.all, :id, :name, :include_blank => "Choose a customer") %>
+
+      <input type="hidden" id="order_customer_id" name="order[customer_id]" value="blanke">
+      <%=
+          #collection_select(:order, :customer_id, Customer.all, :id, :name, :include_blank => "Choose a customer")
+      %>
+      <%= text_field :search_for_customer, :mobile %> <%= link_to("Search", "#", :id => 'search_btn', :class => 'btn btn-success') %>
+
+      <div id="customer_data">
+        <strong>Name</strong>
+
+        <p id="name"></p>
+        <strong>Mobile</strong>
+
+        <p id="mobile"></p>
+      </div>
+      
     </div>
     <div class="field">
       <%= f.label :address_id %>
@@ -42,33 +57,65 @@
 <% end %>
 
 <script>
-    $(document).ready(function () {
 
-        // Dropdown Stuff.
+    function addresses_dropdown(customer_id) {
 
-        $('#order_address_id').attr('disabled', true);
-        $('#order_customer_id').change(function () {
-            $('#order_address_id').find('option')
-                    .remove()
-                    .end();
-            $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: "/ajax/get_addresses/" + $('#order_customer_id').val(),
-                success: function (data) {
-                    $.each(data, function (index, element) {
-                        $('#order_address_id')
-                                .append($("<option></option>")
-                                        .attr("value", element.id)
-                                        .text("D"));
-                    });
+        $('#order_address_id').find('option').remove().end();
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/ajax/get_addresses/" + customer_id,
+            success: function (data) {
+                $.each(data, function (index, element) {
+                    console.log(data);
+                    $('#order_address_id').append($("<option></option>").attr("value", element.id).text("D"));
+                });
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+        return false;
+    }
+
+    function search_for_user() {
+
+        var num = $('#search_for_customer_mobile').val();
+        console.log("Searching for " + num)
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            url: "/ajax/search_for_customer/" + num,
+            success: function (data) {
+                console.log(data);
+                if (data != null) {
+                    console.log(data.id);
+                    // update view
+                    $('#customer_data').attr('hidden', false);
+                    $('#name').text(data.name);
+                    $('#mobile').text(data.mobile);
+                    $('#order_customer_id').val(data.id);
+                    console.log("Current ID : " + $('#order_customer_id').val());
+                    addresses_dropdown(data.id);
                     $('#order_address_id').attr('disabled', false);
-                },
-                error: function (data) {
-                    alert("error");
+                } else {
+                    alert("There is no customer associated with this mobile number.")
                 }
-            });
-            return false;
+            },
+            error: function (data) {
+                alert("No Data");
+            }
+        });
+        return false;
+    }
+
+    $(document).ready(function () {
+        // user info stuff
+        $('#customer_data').attr('hidden', true);
+        $('#order_address_id').attr('disabled', true);
+        // search for customer by mobile.
+        $('#search_btn').click(function () {
+            search_for_user();
         });
     });
 </script>

@@ -8,7 +8,7 @@ class OrdersControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:orders)
+    assert_not_nil assigns(:orders_builder)
   end
 
   test "should get new" do

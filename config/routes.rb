@@ -2,6 +2,10 @@ Hds::Application.routes.draw do
 
   resources :orders
 
+  resources :orders_builder do
+    resources :build, controller: 'orders_builder/build'
+  end
+
   #get "users/index"
   #get "users/show"
 
@@ -20,22 +24,20 @@ Hds::Application.routes.draw do
     resources :districts, only: [:index]
   end
 
-  resources :order_creator
-
 
   devise_for :users
-  resources :users, :only => [:index,:show,:edit]
+  resources :users, :only => [:index, :show, :edit]
   match '/users/:id', :to => 'users#update', via: 'patch'
   match 'users/grantRoles', :to => 'users#grantRoles', via: 'post'
-
 
 
   get "pages/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  match 'ajax/get_districts/:city_id',     :to => 'ajax#get_districts', via: 'get'
+  match 'ajax/get_districts/:city_id', :to => 'ajax#get_districts', via: 'get'
   match 'ajax/get_addresses/:customer_id', :to => 'ajax#get_addresses', via: 'get'
+  match 'ajax/search_for_customer/:customer_mobile', :to => 'ajax#search_for_customer', via: 'get'
 
   # You can have the root of your site routed with "root"
   root 'pages#index'
@@ -88,7 +90,6 @@ Hds::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-
 
 
 end
