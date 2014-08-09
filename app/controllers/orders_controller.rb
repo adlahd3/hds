@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  load_and_authorize_resource
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders_builder
@@ -10,6 +11,8 @@ class OrdersController < ApplicationController
   # GET /orders_builder/1
   # GET /orders_builder/1.json
   def show
+
+    @drivers = User.with_role :driver
   end
 
   # GET /orders_builder/new

@@ -15,17 +15,9 @@
       <div id="map" style='width: 800px; height: 400px;'>
       </div>
     </div>
+      <%= f.hidden_field :lat %>
 
-    <div class="field">
-      <%= f.label :lat %>
-      <br>
-      <%= f.text_field :lat %>
-    </div>
-    <div class="field">
-      <%= f.label :lon %>
-      <br>
-      <%= f.text_field :lon %>
-    </div>
+      <%= f.hidden_field :lon %>
 
     <div class="field">
       <%= f.label :name %>

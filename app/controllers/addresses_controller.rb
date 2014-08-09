@@ -1,6 +1,6 @@
 class AddressesController < ApplicationController
 
-
+  load_and_authorize_resource
   before_action :set_address, only: [:show, :edit, :update, :destroy]
   before_action :set_related_data, only: [:new, :edit]
   # GET /addresses
