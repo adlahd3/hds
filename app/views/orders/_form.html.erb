@@ -19,7 +19,7 @@
       <%=
           #collection_select(:order, :customer_id, Customer.all, :id, :name, :include_blank => "Choose a customer")
       %>
-      <%= text_field :search_for_customer, :mobile %> <%= link_to("Search", "#", :id => 'search_btn', :class => 'btn btn-success') %>
+      <%= text_field :search_for_customer, :mobile, :placeholder => 'Enter Mobile No.' %> <%= link_to("Search", "#", :id => 'search_btn', :class => 'btn btn-success') %>
 
       <div id="customer_data">
         <strong>Name</strong>
@@ -35,15 +35,9 @@
       <%= f.label :address_id %>
       <br>
       <%=
-          #collection_select(:order, :address_id, Address.all, :id, :lat)
+          collection_select(:order, :address_id, Address.all, :id, :lat)
       %>
     </div>
-
-    <div style='width: 800px;'>
-      <div id="map" style='width: 800px; height: 400px;'></div>
-    </div>
-
-
 
     <div class="field">
       <%= f.label :bill_number %>
@@ -75,9 +69,11 @@
             dataType: "json",
             url: "/ajax/get_addresses/" + customer_id,
             success: function (data) {
+
+                console.log(data);
                 $.each(data, function (index, element) {
-                    console.log(data);
-                    $('#order_address_id').append($("<option></option>").attr("value", element.id).text("D"));
+
+                    $('#order_address_id').append($("<option></option>").attr("value", element.id).text(element.name));
                 });
             },
             error: function (data) {
@@ -85,10 +81,6 @@
             }
         });
         return false;
-    }
-
-    function getMarkers(customer_id) {
-
     }
 
     function search_for_user() {
@@ -109,8 +101,8 @@
                     $('#mobile').text(data.mobile);
                     $('#order_customer_id').val(data.id);
                     console.log("Current ID : " + $('#order_customer_id').val());
-                    //addresses_dropdown(data.id);
-                    //$('#order_address_id').attr('disabled', false);
+                    addresses_dropdown(data.id);
+                    $('#order_address_id').attr('disabled', false);
                     customer_data = data;
                 } else {
                     alert("There is no customer associated with this mobile number.")
@@ -126,37 +118,23 @@
     $(document).ready(function () {
 
 
-        function initialize() {
+/*        function initialize() {
             var mapOptions = {
                 zoom: 5,
                 center: new google.maps.LatLng(22.755439, 46.209155)
             };
-
             map = new google.maps.Map(document.getElementById('map'),
                     mapOptions);
         }
 
-        google.maps.event.addDomListener(window, 'load', initialize);
-
+        google.maps.event.addDomListener(window, 'load', initialize);*/
 
         // user info stuff
         $('#customer_data').attr('hidden', true);
-        //$('#order_address_id').attr('disabled', true);
+        $('#order_address_id').attr('disabled', true);
         // search for customer by mobile.
         $('#search_btn').click(function () {
-            cd = search_for_user();
-
-            $.get('/ajax/get_addresses/' + cd.id, {}, function (res, resp) {
-                for (var i = 0, len = res.length; i < len; i++) {
-
-                    var marker = new google.maps.Marker({
-                        position: new google.maps.LatLng(res[i].lat, res[i].lon),
-                        title: res[i] + "",
-                        map:map
-                    });
-                }
-                //window.setTimeout(getMarkers,INTERVAL);
-            }, "json");
+            search_for_user();
         });
     });
 </script>

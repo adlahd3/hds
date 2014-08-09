@@ -11,12 +11,8 @@ class AjaxController < ApplicationController
     if params[:customer_id].present?
       customer = Customer.find(params[:customer_id])
       @addresses = customer.addresses
-      @hash = Gmaps4rails.build_markers(@addresses) do |address, marker|
-        marker.lat address.lat
-        marker.lng address.lon
-      end
     end
-    render :json => @hash
+    render :json => @addresses
   end
 
 

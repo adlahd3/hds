@@ -16,8 +16,6 @@ Hds::Application.routes.draw do
 
   resources :order_types
 
-  resources :statuses
-
   resources :districts
 
   resources :cities do
