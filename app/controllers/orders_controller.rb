@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   # GET /orders_builder
   # GET /orders_builder.json
   def index
-    @orders = Order.all
+    @orders = Order.all.page(params[:page]).per(1)
   end
 
   # GET /orders_builder/1
