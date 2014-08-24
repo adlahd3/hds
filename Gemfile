@@ -53,9 +53,10 @@ gem "better_errors"
 
 gem 'binding_of_caller'
 
-
 gem 'kaminari'
 
+
+gem 'jquery-datatables-rails', '~> 2.2.1'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

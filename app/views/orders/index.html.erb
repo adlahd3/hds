@@ -1,7 +1,6 @@
 <h1>Listing orders</h1>
 
-<%= paginate @orders %>
-<table>
+<table id="table">
   <thead>
   <tr>
     <th>Customer</th>
@@ -37,3 +36,9 @@
 <% if can? :manage, Order %>
     <%= link_to 'New Order', new_order_path %>
 <% end %>
+<script>
+    $(document).ready(function(){
+
+        $('#table').dataTable();
+    });
+</script>
