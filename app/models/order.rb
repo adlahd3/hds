@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   belongs_to :customer
   belongs_to :address
+  belongs_to :user
   mount_uploader :bill_image, BillUploader
 
   include AASM

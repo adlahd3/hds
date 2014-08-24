@@ -49,7 +49,9 @@ gem 'select2-rails'
 
 gem 'aasm'
 
-gem 'geocoder'
+gem "better_errors"
+
+gem 'binding_of_caller'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

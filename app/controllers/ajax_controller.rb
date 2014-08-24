@@ -15,13 +15,28 @@ class AjaxController < ApplicationController
     render :json => @addresses
   end
 
-
-
   def search_for_customer
     if params[:customer_mobile].present?
       @customer = Customer.find_by("mobile = ?",params[:customer_mobile])
     end
     render :json => @customer
+  end
+
+  def assign_order_to_driver
+    if params[:order_id].present? and params[:driver_id].present?
+      @order = Order.find_by("id = ?", params[:order_id])
+
+      # check if it's the first time ?
+
+      if @order.user_id == nil
+         @order.user_id = params[:driver_id]
+         @order.assign!
+      else
+        @order.update(user_id: params[:driver_id])
+      end
+
+    end
+    render :json => @order
   end
 
 end

@@ -54,6 +54,15 @@
       <br>
       <%= f.file_field :bill_image %>
     </div>
+
+
+    <div class="field">
+      <%= label_tag 'Regular Order' %>
+      <%= radio_button_tag :order_type, '', 'a' %>
+
+      <%= label_tag 'Recurring Order' %>
+      <%= radio_button_tag :order_type, '', 'b' %>
+    </div>
     <div class="actions">
       <%= f.submit %>
     </div>

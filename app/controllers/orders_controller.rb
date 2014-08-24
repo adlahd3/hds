@@ -11,7 +11,6 @@ class OrdersController < ApplicationController
   # GET /orders_builder/1
   # GET /orders_builder/1.json
   def show
-
     @drivers = User.with_role :driver
   end
 
@@ -28,7 +27,6 @@ class OrdersController < ApplicationController
   # POST /orders_builder.json
   def create
     @order = Order.new(order_params)
-
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -72,6 +70,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_id, :address_id, :bill_number, :note, :bill_image)
+      params.require(:order).permit(:customer_id,:address_id, :bill_number, :note, :bill_image)
     end
 end

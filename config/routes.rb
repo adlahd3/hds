@@ -36,6 +36,7 @@ Hds::Application.routes.draw do
   match 'ajax/get_districts/:city_id', :to => 'ajax#get_districts', via: 'get'
   match 'ajax/get_addresses/:customer_id', :to => 'ajax#get_addresses', via: 'get'
   match 'ajax/search_for_customer/:customer_mobile', :to => 'ajax#search_for_customer', via: 'get'
+  match 'ajax/assign_order_to_driver/:order_id/:driver_id', :to => 'ajax#assign_order_to_driver', :via => 'get'
 
   # You can have the root of your site routed with "root"
   root 'pages#index'

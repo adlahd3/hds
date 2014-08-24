@@ -8,6 +8,10 @@
 <p>
   <strong>Order Status:</strong>
   <%= @order.aasm_state %>
+  <% if @order.assigned? %>
+      <% str = " to #{@order.user.name}. Change Driver ?" %>
+      <%= link_to str, "#", data: {toggle: "modal", target: "#myModal"} %>
+  <% end %>
 </p>
 
 <p>
@@ -31,9 +35,12 @@
   <strong>Bill image:</strong>
   <%= image_tag(@order.bill_image) %>
 </p>
-<% if can? :manage, Order %>
-    <%= link_to 'Click Here', "#", data: {toggle: "modal", target: "#myModal"} %>
 
+<%= hidden_field_tag 'order_id', @order.id %>
+<% if can? :manage, Order %>
+    <% if @order.opened? %>
+        <%= link_to 'Assign Order To Driver', "#", data: {toggle: "modal", target: "#myModal"} %>
+    <% end %>
     <%= link_to 'Edit', edit_order_path(@order) %> |
 <% end %>
 <%= link_to 'Back', orders_path %>
@@ -42,11 +49,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">Assign Order To Driver.</h4>
       </div>
       <div class="modal-body">
-
+        <% if @order.assigned? %>
+            <%= @order.user.name %>
+        <% end %>
         <%= select_tag "drivers", options_from_collection_for_select(@drivers, "id", "name") %>
 
       </div>
@@ -54,18 +64,42 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" id="assignOrder_btn" class="btn btn-primary">Save changes</button>
       </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
 <script>
-  $(document).ready(function(){
+    $(document).ready(function () {
 
-      $('#assignOrder_btn').click(function(e){
-        // send the order id + driver id to ajax controller telling it
-        // to update the order status to assigned & associate the ids
-      });
+        $('#assignOrder_btn').click(function (e) {
+            // send the order id + driver id to ajax controller telling it
+
+            order_id = $('#order_id').val();
+            driver_id = $('#drivers').val();
+            //console.log("driver id is  = "+driver_id);
+
+            // to update the order status to assigned & associate the ids
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/ajax/assign_order_to_driver/" + order_id+"/"+driver_id,
+                success: function (data) {
+                    console.log(data);
+                    if (data != null) {
+                        $('#myModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert("There is no customer associated with this mobile number.")
+                    }
+                },
+                error: function (data) {
+                    alert("No Data");
+                }
+            });
+        });
 
 
-  });
+    });
 </script>
