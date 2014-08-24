@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
   # GET /orders_builder/new
   def new
     @order = Order.new
+    @order_types = OrderType.all
   end
 
   # GET /orders_builder/1/edit
@@ -70,6 +71,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_id,:address_id, :bill_number, :note, :bill_image)
+      params.require(:order).permit(:customer_id,:address_id, :bill_number, :note, :bill_image,:order_type_id)
     end
 end

@@ -57,11 +57,18 @@
 
 
     <div class="field">
-      <%= label_tag 'Regular Order' %>
-      <%= radio_button_tag :order_type, '', 'a' %>
 
-      <%= label_tag 'Recurring Order' %>
-      <%= radio_button_tag :order_type, '', 'b' %>
+      <% @order_types.each do |ot| %>
+
+          <%= f.radio_button :order_type, ot.id %>
+          <%= f.label :order_type, ot.name %>
+
+      <% end %>
+
+    </div>
+    <div class="field" id="datetime_selector">
+       <p>Repeat Everyday until : </p>
+      <%= datetime_select("article", "written_on")  %>
     </div>
     <div class="actions">
       <%= f.submit %>
@@ -127,16 +134,18 @@
     $(document).ready(function () {
 
 
-/*        function initialize() {
-            var mapOptions = {
-                zoom: 5,
-                center: new google.maps.LatLng(22.755439, 46.209155)
-            };
-            map = new google.maps.Map(document.getElementById('map'),
-                    mapOptions);
-        }
+        $('#datetime_selector').attr('hidden', true);
 
-        google.maps.event.addDomListener(window, 'load', initialize);*/
+        /*        function initialize() {
+         var mapOptions = {
+         zoom: 5,
+         center: new google.maps.LatLng(22.755439, 46.209155)
+         };
+         map = new google.maps.Map(document.getElementById('map'),
+         mapOptions);
+         }
+
+         google.maps.event.addDomListener(window, 'load', initialize);*/
 
         // user info stuff
         $('#customer_data').attr('hidden', true);
@@ -145,5 +154,36 @@
         $('#search_btn').click(function () {
             search_for_user();
         });
+
+
+        // toggle date and time on and off based on Regular & Recurring
+
+
+        $('#order_order_type_2').click(function () {
+
+            // put your code here and your alert
+
+            var isVisible = $('#datetime_selector').is(':visible');
+            if (!isVisible) {
+                $('#datetime_selector').attr('hidden', false);
+            }
+
+            console.log("Order_Type_2 is Checked");
+
+        });
+
+        $('#order_order_type_1').click(function () {
+
+            // put your code here and your alert
+
+            var isVisible = $('#datetime_selector').is(':visible');
+            if (isVisible) {
+                $('#datetime_selector').attr('hidden', true);
+            }
+
+            console.log("Order_Type_1 is Checked");
+
+        });
+
     });
 </script>
