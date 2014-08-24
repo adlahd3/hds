@@ -1,6 +1,6 @@
 <h1>Listing addresses</h1>
 
-<table>
+<table id="table">
   <thead>
   <tr>
     <th>Lat</th>
@@ -8,6 +8,7 @@
     <th>City</th>
     <th>District</th>
     <th>Name</th>
+    <th>Customer's Name</th>
     <th></th>
     <th></th>
     <th></th>
@@ -22,6 +23,11 @@
         <td><%= address.city.name %></td>
         <td><%= address.district.name %></td>
         <td><%= address.name %></td>
+        <td><% address.customers.each do |c|  %>
+              <%= "#{c.name} " %>
+
+              <% end %>
+              </td>
         <% if can? :manage, Address %>
             <td><%= link_to 'Show', address %></td>
             <td><%= link_to 'Edit', edit_address_path(address) %></td>
@@ -36,3 +42,9 @@
 <% if can? :manage, Customer %>
     <%= link_to 'New Address', new_address_path %>
 <% end %>
+<script>
+    $(document).ready(function(){
+
+        $('#table').dataTable();
+    });
+</script>
