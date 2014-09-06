@@ -1,6 +1,6 @@
 <h1>Listing districts</h1>
 
-<table>
+<table id="table">
   <thead>
   <tr>
     <th>Name</th>
@@ -31,3 +31,9 @@
 <% if can? :manage, District %>
     <%= link_to 'New District', new_district_path %>
 <% end %>
+<script>
+    $(document).ready(function(){
+
+        $('#table').dataTable();
+    });
+</script>

@@ -5,7 +5,15 @@ class OrdersController < ApplicationController
   # GET /orders_builder
   # GET /orders_builder.json
   def index
-    @orders = Order.all.page(params[:page]).per(1)
+
+    if can? :manage, Order
+     @orders = Order.all
+    end
+
+    if user_signed_in? and current_user.has_role? :driver
+      @orders = Order.where("user_id = ? and aasm_state = ?",current_user.id, :assigned)
+    end
+
   end
 
   # GET /orders_builder/1
@@ -28,6 +36,9 @@ class OrdersController < ApplicationController
   # POST /orders_builder.json
   def create
     @order = Order.new(order_params)
+    code = generate_code
+    @order.code = code
+
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -71,6 +82,11 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:customer_id,:address_id, :bill_number, :note, :bill_image,:order_type_id)
+      params.require(:order).permit(:customer_id, :address_id, :order_type_id,:bill_number, :note, :bill_image)
+    end
+
+    def generate_code
+      code = rand.to_s[2..4]
+
     end
 end

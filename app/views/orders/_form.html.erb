@@ -15,7 +15,7 @@
       <%= f.label :customer_id %>
       <br>
 
-      <input type="hidden" id="order_customer_id" name="order[customer_id]" value="blanke">
+      <input type="hidden" id="order_customer_id" name="order[customer_id]" value="">
       <%=
           #collection_select(:order, :customer_id, Customer.all, :id, :name, :include_blank => "Choose a customer")
       %>
@@ -60,8 +60,8 @@
 
       <% @order_types.each do |ot| %>
 
-          <%= f.radio_button :order_type, ot.id %>
-          <%= f.label :order_type, ot.name %>
+          <%= f.radio_button :order_type_id, ot.id %>
+          <%= f.label :order_type_id, ot.name %>
 
       <% end %>
 

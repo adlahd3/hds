@@ -1,6 +1,6 @@
 <h1>Listing order_types</h1>
 
-<table>
+<table id="table">
   <thead>
   <tr>
     <th>Name</th>
@@ -28,3 +28,9 @@
 <% if can? :manage, OrderType %>
     <%= link_to 'New Order type', new_order_type_path %>
 <% end %>
+<script>
+    $(document).ready(function(){
+
+        $('#table').dataTable();
+    });
+</script>

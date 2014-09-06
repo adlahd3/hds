@@ -1,6 +1,6 @@
 <h1>Listing customers</h1>
 
-<table>
+<table id="table">
   <thead>
   <tr>
     <th>Name</th>
@@ -34,3 +34,9 @@
 <% if can? :manage, Customer %>
     <%= link_to 'New Customer', new_customer_path %>
 <% end %>
+<script>
+    $(document).ready(function(){
+
+        $('#table').dataTable();
+    });
+</script>

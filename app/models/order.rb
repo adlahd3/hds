@@ -5,6 +5,10 @@ class Order < ActiveRecord::Base
   belongs_to :order_type
   mount_uploader :bill_image, BillUploader
 
+  validates :customer_id,  :presence => true, :numericality => true
+  validates :address_id,   :presence => true, :numericality => true
+  validates :order_type_id,:presence => true, :numericality => true
+
   include AASM
   aasm do
     state :opened, :initial => true

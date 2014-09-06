@@ -1,5 +1,5 @@
 <h1>Listing orders</h1>
-
+<% if @orders != nil %>
 <table id="table">
   <thead>
   <tr>
@@ -8,9 +8,9 @@
     <th>Bill number</th>
     <th>Note</th>
     <th>Status</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <% if can? :manage, Order %>
+        <th>Actions</th>
+    <% end %>
   </tr>
   </thead>
 
@@ -23,9 +23,10 @@
         <td><%= order.note %></td>
         <td><%= order.aasm_state %></td>
         <% if can? :manage, Order %>
-            <td><%= link_to 'Show', order %></td>
-            <td><%= link_to 'Edit', edit_order_path(order) %></td>
-            <td><%= link_to 'Destroy', order, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+            <td><%= link_to 'Show', order %> |
+              <%= link_to 'Edit', edit_order_path(order) %> |
+              <%= link_to 'Destroy', order, method: :delete, data: {confirm: 'Are you sure?'} %>
+            </td>
         <% end %>
       </tr>
   <% end %>
@@ -37,8 +38,11 @@
     <%= link_to 'New Order', new_order_path %>
 <% end %>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         $('#table').dataTable();
     });
 </script>
+<% else %>
+    <h1>No Orders for you.</h1>
+<% end %>
