@@ -5,8 +5,6 @@
       <driver-ref>postgresql</driver-ref>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql:hds</jdbc-url>
-      <user-name>adel</user-name>
-      <user-password>df9bdf98df99df9e</user-password>
       <libraries />
     </data-source>
   </component>

@@ -6,8 +6,8 @@
 development:
   adapter: postgresql
   database: hds
-  username: adel
-  password: 1234
+  #username: adel
+  #password: 1234
   pool: 5
   timeout: 5000
 
