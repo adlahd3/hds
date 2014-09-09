@@ -37,7 +37,7 @@ gem 'wicked'
 
 gem 'gmaps4rails'
 
-gem 'paper_trail', '~> 3.0.3'
+gem 'paperclip', '~> 3.1.4'
 
 gem 'carrierwave'
 
