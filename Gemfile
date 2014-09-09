@@ -37,7 +37,7 @@ gem 'wicked'
 
 gem 'gmaps4rails'
 
-gem 'paperclip', '~> 3.1.4'
+gem 'paper_trail', '~> 3.0.3'
 
 gem 'carrierwave'
 
@@ -49,7 +49,7 @@ gem 'select2-rails'
 
 gem 'aasm'
 
-gem "better_errors"
+gem 'better_errors'
 
 gem 'binding_of_caller'
 
