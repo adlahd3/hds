@@ -162,7 +162,7 @@ DEPENDENCIES
   jquery-datatables-rails (~> 2.2.1)
   jquery-rails
   kaminari
-  paper_trail (~> 3.0.3)
+  paper_trail
   pg
   rails (= 4.0.2)
   rails_12factor
